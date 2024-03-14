@@ -12,7 +12,7 @@ var jwtSecret = []byte("aSuperSecretKeyStoredInAProperPlace")
 
 // TokenResponse is the response for a token.
 type TokenResponse struct {
-	UserID       int       `json:"user_id"`
+	UserID       int       `json:"user_id,omitempty"`
 	Token        string    `json:"token"`
 	ExpiresAfter time.Time `json:"expires_after"`
 }
