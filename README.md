@@ -36,6 +36,10 @@ This allows the ease of access to something like a database connection, a logger
 
 By default I used the build-in functionality of SQL to auto-increment my IDs and matched the type specified in the documentation. However, in production I would use a UUID or similar non-sequential ID to avoid any potential security issues of a user trying to 'game' the system by guessing the next ID on the swipe endpoint.
 
+### Secrets / Passwords
+
+Due to the nature of this project, I felt comfortable hardcoding the database password and JWT secret key etc. In a production environment I would use something like GitHub Secrets or Hashicorp Vault to store these.
+
 ---
 
 I appreciate you taking the time to review my project!
