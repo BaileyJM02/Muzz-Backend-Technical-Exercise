@@ -3,7 +3,6 @@ package database
 import (
 	"fmt"
 
-	"github.com/baileyjm02/muzz-backend-technical-exercise/user"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -29,7 +28,7 @@ type Database struct {
 }
 
 // Start is a function that starts the database
-func Start() {
+func Initiate() *Database {
 	fmt.Println("Starting Database...")
 
 	db := &Database{
@@ -42,9 +41,9 @@ func Start() {
 	}
 
 	db.connect()
-	db.migrate()
-
 	fmt.Println("Database ready for use!")
+
+	return db
 }
 
 func (db *Database) connect() {
@@ -55,12 +54,4 @@ func (db *Database) connect() {
 	}
 
 	db.Instance = instance
-}
-
-func (db *Database) migrate() {
-	fmt.Println("Migrating Database...")
-
-	db.Instance.AutoMigrate(&user.User{})
-
-	fmt.Println("Database Migrated!")
 }
