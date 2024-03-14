@@ -16,7 +16,9 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	WriteJSON(w, user)
+	WriteJSON(w, ResultWrapper{
+			Result: user,
+		})
 }
 
 // LoginUser attempts to authenticate a user and return a token. It specifically returns the same

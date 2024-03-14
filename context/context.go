@@ -10,6 +10,7 @@ import (
 type Context struct {
 	// DB is the database package instance.
 	DB *database.Database
+	// Could have something like a logger or prometheus client here etc.
 }
 
 // ctx is the context the application.

@@ -15,6 +15,16 @@ func Start() {
 
 }
 
+// Add singular and plural wrapper for JSON responses.
+// Forgot to add these in the original implementation, was an afterthought.
+type ResultWrapper struct {
+	Result interface{} `json:"result"`
+}
+
+type ResultsWrapper struct {
+	Results interface{} `json:"results"`
+}
+
 func WriteErrorJSON(w http.ResponseWriter, err error) {
 	errorMessage := struct {
 		Error string `json:"error"`

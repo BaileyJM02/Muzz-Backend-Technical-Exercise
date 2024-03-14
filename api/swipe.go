@@ -48,8 +48,10 @@ func SwipeUser(w http.ResponseWriter, r *http.Request) {
 
 	// If no match, return
 	if !matched {
-		WriteJSON(w, swipeResponse{
-			Matched: false,
+		WriteJSON(w, ResultsWrapper{
+			Results: swipeResponse{
+				Matched: false,
+			},
 		})
 		return
 	}
@@ -61,9 +63,13 @@ func SwipeUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Return match response
-	WriteJSON(w, swipeResponse{
+	swipeRes := swipeResponse{
 		Matched: true,
 		MatchID: matchRecord.ID,
+	}
+
+	// Return match response
+	WriteJSON(w, ResultsWrapper{
+		Results: swipeRes,
 	})
 }

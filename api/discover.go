@@ -32,5 +32,7 @@ func DiscoverUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	WriteJSON(w, user)
+	WriteJSON(w, ResultsWrapper{
+		Results: user,
+	})
 }
