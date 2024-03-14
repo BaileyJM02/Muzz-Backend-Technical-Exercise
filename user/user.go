@@ -10,13 +10,17 @@ import (
 type User struct {
 	ID       int    `json:"id" gorm:"primaryKey"`
 	Name     string `json:"name"`
-	Email    string `json:"email" gorm:"unique"`
+	Email    string `json:"email,omitempty" gorm:"unique"`
 	Gender   string `json:"gender"`
 	Age      int    `json:"age"`
-	Password string `json:"password"`
+	Password string `json:"password,omitempty"`
 }
 
-func init() {
+// init is called when the package is imported, and is used to migrate the database to the latest schema
+func init() { AutoMigrate() }
+
+// AutoMigrate ensures the database is migrated to the latest schema
+func AutoMigrate() {
 	ctx := context.GetContext()
 	fmt.Println("[USER] [MIGRATION] Starting User Migration...")
 

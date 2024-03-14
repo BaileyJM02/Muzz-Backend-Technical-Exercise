@@ -23,9 +23,7 @@ func GetRouter() *mux.Router {
 	authRouter := router.NewRoute().Subrouter()
 	authRouter.Use(AuthenticatedMiddleware)
 
-	authRouter.HandleFunc("/discover", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "discover")
-	}).Methods("GET")
+	authRouter.HandleFunc("/discover", api.DiscoverUsers).Methods("GET")
 
 	return router
 }
