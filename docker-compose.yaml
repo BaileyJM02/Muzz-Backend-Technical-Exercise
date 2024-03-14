@@ -8,5 +8,23 @@ services:
       MYSQL_DATABASE: muzz
       MYSQL_USER: muzzUser
       MYSQL_PASSWORD: muzzUserPass
+    healthcheck:
+      # Test to ensure it's ready to accept connections
+      test: healthcheck.sh --su-mysql --connect --innodb_initialized
+      start_period: 0s
+      interval: 2s
+      timeout: 30s
+
+  api:
+    build: .
     ports:
-      - "3306:3306"
+      - "3000:3000"
+    depends_on:
+      database:
+        # Ensure the database is healthy before starting the API
+        condition: service_healthy
+    environment:
+      DB_HOST: database:3306
+      DB_USER: muzzUser
+      DB_PASS: muzzUserPass
+      DB_NAME: muzz
