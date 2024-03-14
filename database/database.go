@@ -23,7 +23,7 @@ type Database struct {
 
 // Start is a function that starts the database
 func Initiate() *Database {
-	fmt.Println("Starting Database...")
+	fmt.Println("Connecting to Database...")
 
 	// Get the database credentials from the environment
 	DB_HOST, _ := os.LookupEnv("DB_HOST")

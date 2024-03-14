@@ -6,15 +6,6 @@ import (
 	"net/http"
 )
 
-func init() {
-	fmt.Println("API Starting!")
-}
-
-func Start() {
-	fmt.Println("API Started!")
-
-}
-
 // Add singular and plural wrapper for JSON responses.
 // Forgot to add these in the original implementation, was an afterthought.
 type ResultWrapper struct {
