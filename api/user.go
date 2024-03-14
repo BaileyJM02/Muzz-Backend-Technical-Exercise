@@ -37,7 +37,7 @@ func LoginUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := utils.CreateTokenString(email)
+	token, err := utils.CreateTokenString(user.ID)
 	if err != nil {
 		WriteErrorJSON(w, err)
 		return

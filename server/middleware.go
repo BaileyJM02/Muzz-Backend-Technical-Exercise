@@ -1,6 +1,7 @@
 package server
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/baileyjm02/muzz-backend-technical-exercise/utils"
@@ -40,11 +41,15 @@ func AuthenticatedMiddleware(next http.Handler) http.Handler {
 			token = cookieToken.Value
 		}
 
-		_, err := utils.ParseToken(token)
+		parsedToken, err := utils.ParseToken(token)
 		if err != nil {
 			unauthorisedResponse(w)
 			return
 		}
+
+		// Add the UserID to the context of the next request
+		ctx := context.WithValue(r.Context(), "userID", parsedToken.UserID)
+		r = r.WithContext(ctx)
 
 		next.ServeHTTP(w, r)
 	})
