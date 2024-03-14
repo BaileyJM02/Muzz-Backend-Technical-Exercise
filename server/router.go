@@ -10,7 +10,7 @@ import (
 
 // GetRouter returns a list of routes available and being listened too on the server
 func GetRouter() *mux.Router {
-	// Add the endpoint for engine payloads
+	// Create the inital router, adding middleware and 404 handler.
 	router := mux.NewRouter().StrictSlash(true)
 	router.Use(AccessControlAllowMiddleware)
 
