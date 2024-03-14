@@ -8,10 +8,11 @@ import (
 )
 
 // Swipe is the idea of 'liking' or 'disliking' another user.
+// Ensure the user_id and target_id are unique together
 type Swipe struct {
 	ID         int    `json:"id" gorm:"primaryKey"`
-	UserID     int    `json:"user_id"`
-	TargetID   int    `json:"target_id"`
+	UserID     int    `json:"user_id" gorm:"uniqueIndex:idx_user_target"`
+	TargetID   int    `json:"target_id" gorm:"uniqueIndex:idx_user_target"`
 	Preference string `json:"preference" gorm:"type:enum('like', 'dislike')"`
 }
 

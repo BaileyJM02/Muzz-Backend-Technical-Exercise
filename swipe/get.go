@@ -25,3 +25,15 @@ func GetSwipesByTargetID(targetID int) ([]Swipe, error) {
 
 	return swipes, nil
 }
+
+// GetSwipesByUserIDAndTargetID returns swipe for a user and target if it exists
+func GetSwipesByUserIDAndTargetID(userID int, targetID int) (Swipe, error) {
+	ctx := context.GetContext()
+	swipes := Swipe{}
+	rtx := ctx.DB.Instance.Where("user_id = ? AND target_id = ?", userID, targetID).First(&swipes)
+	if rtx.Error != nil {
+		return Swipe{}, rtx.Error
+	}
+
+	return swipes, nil
+}
