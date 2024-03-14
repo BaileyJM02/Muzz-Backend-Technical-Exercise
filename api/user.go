@@ -1,26 +1,54 @@
 package api
 
 import (
-	"encoding/json"
-	"fmt"
+	"errors"
 	"net/http"
 
 	"github.com/baileyjm02/muzz-backend-technical-exercise/user"
+	"github.com/baileyjm02/muzz-backend-technical-exercise/utils"
 )
 
+// CreateUser creates a new user and returns it.
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	user := user.CreateRandom()
-
-	// Send user as JSON
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
-
-	bytes, err := json.Marshal(user)
+	user, err := user.CreateRandom()
 	if err != nil {
-		w.WriteHeader(http.StatusInternalServerError)
-		fmt.Fprintf(w, "error marshalling user: %s", err)
+		WriteErrorJSON(w, err)
 		return
 	}
 
-	w.Write(bytes)
+	WriteJSON(w, user)
+}
+
+// LoginUser attempts to authenticate a user and return a token. It specifically returns the same
+// error message for invalid credentials to avoid leaking information about the existence of a user.
+func LoginUser(w http.ResponseWriter, r *http.Request) {
+	errorResponse := errors.New("invalid credentials")
+	email := r.FormValue("email")
+	password := r.FormValue("password")
+
+	user, err := user.GetByEmail(email)
+	if err != nil {
+		WriteErrorJSON(w, errorResponse)
+		return
+	}
+
+	if !utils.CompareHashPassword(password, user.Password) {
+		WriteErrorJSON(w, errorResponse)
+		return
+	}
+
+	token, err := utils.CreateTokenString(email)
+	if err != nil {
+		WriteErrorJSON(w, err)
+		return
+	}
+
+	// Set the token as a cookie
+	http.SetCookie(w, &http.Cookie{
+		Name:    "token",
+		Value:   token.Token,
+		Expires: token.ExpiresAfter,
+	})
+
+	WriteJSON(w, token)
 }
