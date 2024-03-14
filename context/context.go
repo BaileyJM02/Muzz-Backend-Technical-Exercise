@@ -19,7 +19,7 @@ var ctx *Context
 // ctxOnce ensures the context is only created once.
 var ctxOnce sync.Once
 
-// GetContext initiates return the context of the application, ensuring it is only created once.
+// GetContext initiates and returns the context of the application, ensuring it is only created once.
 func GetContext() *Context {
 	ctxOnce.Do(func() {
 		ctx = &Context{
