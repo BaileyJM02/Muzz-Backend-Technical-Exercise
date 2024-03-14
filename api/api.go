@@ -1,6 +1,8 @@
 package api
 
-import "fmt"
+import (
+	"fmt"
+)
 
 func init() {
 	fmt.Println("API Starting!")
@@ -8,4 +10,5 @@ func init() {
 
 func Start() {
 	fmt.Println("API Started!")
+
 }
