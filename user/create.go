@@ -58,6 +58,11 @@ func CreateRandom() (User, error) {
 		Gender:   fake.Gender(),
 		Age:      fake.Number(18, 40),
 		Password: plainTextPassword,
+		Location: Location{
+			Name:      fakePerson.Address.City,
+			Longitude: fakePerson.Address.Longitude,
+			Latitude:  fakePerson.Address.Latitude,
+		},
 	}
 
 	// Call the normal create user flow.
