@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/baileyjm02/muzz-backend-technical-exercise/api"
 	"github.com/baileyjm02/muzz-backend-technical-exercise/match"
 	"github.com/baileyjm02/muzz-backend-technical-exercise/server"
 	"github.com/baileyjm02/muzz-backend-technical-exercise/swipe"
@@ -11,19 +8,21 @@ import (
 	"github.com/baileyjm02/muzz-backend-technical-exercise/utils"
 )
 
+// Main entry point for the application
 func main() {
-	fmt.Println("Hello, World!")
-
+	// Ensure all tables are created / migrated
 	user.AutoMigrate()
 	swipe.AutoMigrate()
 	match.AutoMigrate()
 
+	// Start the API server
 	go server.Start()
-	go api.Start()
 
-	stateCheck := make(chan struct{})
+	// Example channel if we needed to block a graceful shutdown
+	// process elsewhere
+	exampleChannel := make(chan struct{})
 	channels := []chan struct{}{
-		stateCheck,
+		exampleChannel,
 	}
 
 	utils.Preserve(channels)
