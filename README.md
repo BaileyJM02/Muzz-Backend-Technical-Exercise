@@ -32,6 +32,10 @@ This is, what I think is, a very useful and extendable way to offer a graceful s
 
 This allows the ease of access to something like a database connection, a logger or prometheus client. It also IMO makes code much clearer as I don't have to pass the database instance around the app via structs or pointers within functions, I can simply request the context and get the database instance from it.
 
+### Sequential IDs
+
+By default I used the build-in functionality of SQL to auto-increment my IDs and matched the type specified in the documentation. However, in production I would use a UUID or similar non-sequential ID to avoid any potential security issues of a user trying to 'game' the system by guessing the next ID on the swipe endpoint.
+
 ---
 
 I appreciate you taking the time to review my project!
