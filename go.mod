@@ -2,8 +2,11 @@ module github.com/baileyjm02/muzz-backend-technical-exercise
 
 go 1.22
 
+require github.com/gorilla/mux v1.8.1
+
 require (
 	filippo.io/edwards25519 v1.1.0 // indirect
+	github.com/brianvoe/gofakeit/v7 v7.0.2 // indirect
 	github.com/go-sql-driver/mysql v1.8.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
