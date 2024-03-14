@@ -8,7 +8,7 @@ import (
 
 var db *database.Database
 
-// getDatabaseOnce is the database once.
+// getDatabaseOnce ensures we only ever call 'Initiate' once.
 var getDatabaseOnce sync.Once
 
 // GetDB returns the database instance.
