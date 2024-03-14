@@ -24,6 +24,7 @@ func GetRouter() *mux.Router {
 	authRouter.Use(AuthenticatedMiddleware)
 
 	authRouter.HandleFunc("/discover", api.DiscoverUsers).Methods("GET")
+	authRouter.HandleFunc("/swipe", api.SwipeUser).Methods("POST")
 
 	return router
 }
