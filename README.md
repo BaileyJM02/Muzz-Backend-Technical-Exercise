@@ -34,7 +34,7 @@ This allows the ease of access to something like a database connection, a logger
 
 ### Sequential IDs
 
-By default I used the build-in functionality of SQL to auto-increment my IDs and matched the type specified in the documentation. However, in production I would use a UUID or similar non-sequential ID to avoid any potential security issues of a user trying to 'game' the system by guessing the next ID on the swipe endpoint.
+By default I used the built-in functionality of SQL to auto-increment my IDs and matched the type specified in the documentation. However, in production I would use a UUID or similar non-sequential ID to avoid any potential security issues of a user trying to 'game' the system by guessing the next ID on the swipe endpoint.
 
 ### Secrets / Passwords
 
