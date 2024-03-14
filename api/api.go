@@ -16,6 +16,7 @@ type ResultsWrapper struct {
 	Results interface{} `json:"results"`
 }
 
+// WriteErrorJSON writes an error message to the response, in JSON format.
 func WriteErrorJSON(w http.ResponseWriter, err error) {
 	errorMessage := struct {
 		Error string `json:"error"`
@@ -23,12 +24,23 @@ func WriteErrorJSON(w http.ResponseWriter, err error) {
 		Error: err.Error(),
 	}
 
-	WriteJSON(w, errorMessage)
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusBadRequest)
+
+	bytes, err := json.Marshal(errorMessage)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		fmt.Fprintf(w, "error marshalling response: %s", err)
+		return
+	}
+
+	w.Write(bytes)
 }
 
+// WriteJSON writes an interface to the response, in JSON format.
 func WriteJSON(w http.ResponseWriter, any interface{}) {
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
+	w.WriteHeader(http.StatusOK)
 
 	bytes, err := json.Marshal(any)
 	if err != nil {
