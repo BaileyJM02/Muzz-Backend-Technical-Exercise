@@ -8,6 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// Credentials stores the database configuration
 type Credentials struct {
 	Username string
 	Password string
@@ -21,7 +22,7 @@ type Database struct {
 	Instance    *gorm.DB
 }
 
-// Start is a function that starts the database
+// Start is a function tha fetches credentials and initiates the connection to the database
 func Initiate() *Database {
 	fmt.Println("Connecting to Database...")
 
