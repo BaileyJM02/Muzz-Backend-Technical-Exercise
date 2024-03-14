@@ -10,7 +10,7 @@ import (
 func Start() {
 	// Start the HTTP server ()
 	server := &http.Server{
-		Addr:         ":8080",
+		Addr:         ":3000",
 		Handler:      GetRouter(),
 		ReadTimeout:  6 * time.Second,
 		WriteTimeout: 6 * time.Second,

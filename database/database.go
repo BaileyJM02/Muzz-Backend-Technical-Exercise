@@ -2,16 +2,10 @@ package database
 
 import (
 	"fmt"
+	"os"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-)
-
-const (
-	tableName  = "muzz"
-	dbUser     = "muzzUser"
-	dbPassword = "muzzUserPass"
-	uri        = "localhost:3306"
 )
 
 type Credentials struct {
@@ -31,12 +25,18 @@ type Database struct {
 func Initiate() *Database {
 	fmt.Println("Starting Database...")
 
+	// Get the database credentials from the environment
+	DB_HOST, _ := os.LookupEnv("DB_HOST")
+	DB_USER, _ := os.LookupEnv("DB_USER")
+	DB_PASS, _ := os.LookupEnv("DB_PASS")
+	DB_NAME, _ := os.LookupEnv("DB_NAME")
+
 	db := &Database{
 		credentials: Credentials{
-			Username: dbUser,
-			Password: dbPassword,
-			URI:      uri,
-			Table:    tableName,
+			Username: DB_USER,
+			Password: DB_PASS,
+			URI:      DB_HOST,
+			Table:    DB_NAME,
 		},
 	}
 
